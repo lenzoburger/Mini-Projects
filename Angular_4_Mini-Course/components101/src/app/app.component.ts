@@ -21,6 +21,12 @@ import { Component } from '@angular/core';
   <div *ngIf="isRaining; then rainTmpl else sunTmpl;"></div>
     <ng-template #rainTmpl>It's raining</ng-template>
     <ng-template #sunTmpl>It's Sunny</ng-template>
+
+<p>
+</p>
+<h2>Property Binding</h2>
+<img src="{{ otherLogos }}">
+
 `
   ,
   styleUrls: ['./app.component.css']
@@ -34,4 +40,9 @@ export class AppComponent {
   myShoppingList = ['fish','banana','mylk','veges']
   beNice = false;
   isRaining = false;
+
+  angularLogo = '../resources/images/angularLogo.ico'
+
+  otherLogos = '../favicon.ico'
+
 }
