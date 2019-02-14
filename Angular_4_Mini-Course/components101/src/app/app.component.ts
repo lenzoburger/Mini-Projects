@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
   template: `<h1>Project: Agular 4 101</h1>
 <p>
 </p>
-<h2>Templates</h2>
+<h2>1.Templates</h2>
 
 <ul><b>Customer Details</b>
     <li>{{customerObj.name}}</li>
@@ -27,7 +27,7 @@ import { Component } from '@angular/core';
     <ng-template #sunTmpl>It's Sunny</ng-template>
 
 <p></p>
-<h2>Property Binding</h2>
+<h2>2.Property Binding</h2>
 <img src="{{ angularLogo }}">
 
 <img *ngFor="let images of otherLogos" src="{{ images }}">
@@ -42,16 +42,34 @@ import { Component } from '@angular/core';
 
 
 <p></p>
-<h2>Event Binding</h2>
+<h2>3.Event Binding</h2>
 <button (click)="myEvent($event)">Click Me</button>
 <p></p>
 <button (mouseenter)="myEvent($event)">Mouse Hover</button>
 
 <p></p>
-<h2 class="styleMe">Defining Style Sheets</h2>
+<h2 class="styleMe">4.Defining Style Sheets</h2>
 
 <p></p>
-<h2>Class Binding</h2>
+<h2 >5.Class Binding</h2>
+
+<h3 [class]="titleClass1">titleClass1</h3>
+
+<h3 [class.blue-title]="titleClass2">titleClass2</h3>
+
+<h3 [ngClass]="multiClasses">multiClass</h3>
+
+
+
+<p></p>
+<h2 >6.Style Binding</h2>
+
+<h3 [style.color]="titleStyle1">style.color</h3>
+
+<h3 [style.color]="titleStyle2 ? 'green' : 'pink'">style.color.Conditional</h3>
+
+<h3 [ngStyle]="multiStyles">ngStyle</h3>
+
 `
   ,
   styles: [`
@@ -69,6 +87,21 @@ import { Component } from '@angular/core';
     text-shadow: 3px 2px red;
   }
 
+  .red-title{
+    color: red;
+  }
+
+  .blue-title{
+    color: blue;
+  }
+
+  .green-title{
+    color: green;
+  }
+
+  .large-title{
+    font-size: 4em;
+  }
 `]
 })
 export class AppComponent {
@@ -93,5 +126,23 @@ export class AppComponent {
 
   myEvent(event) {
     console.log(event);
+  }
+
+  titleClass1 = 'red-title';
+
+  titleClass2 = true;
+
+  multiClasses = {
+    'green-title': true,
+    'large-title': true
+  }
+
+  titleStyle1 = 'red';
+
+  titleStyle2 = true;
+
+  multiStyles = {
+    'color': 'brown',
+    'text-decoration': 'line-through'
   }
 }
