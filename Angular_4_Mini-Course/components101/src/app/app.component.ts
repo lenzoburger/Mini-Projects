@@ -43,9 +43,33 @@ import { Component } from '@angular/core';
 
 <p></p>
 <h2>Event Binding</h2>
+<button (click)="myEvent($event)">Click Me</button>
+<p></p>
+<button (mouseenter)="myEvent($event)">Mouse Hover</button>
+
+<p></p>
+<h2 class="styleMe">Defining Style Sheets</h2>
+
+<p></p>
+<h2>Class Binding</h2>
 `
   ,
-  styleUrls: ['./app.component.css']
+  styles: [`
+
+  h2{
+    text-decoration:underline;
+  }
+
+  .styleMe{
+    color: green;
+    font-family: verdana;
+    font-size: 25px;
+    padding-top: 15px;
+    padding-bottom: 45px;
+    text-shadow: 3px 2px red;
+  }
+
+`]
 })
 export class AppComponent {
   customerObj = {
@@ -66,4 +90,8 @@ export class AppComponent {
   kodiBlack = '../assets/images/kodiBlack.png'
 
   disableButton = true;
+
+  myEvent(event) {
+    console.log(event);
+  }
 }
