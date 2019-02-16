@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { DataService } from './data.service';
+import { trigger,state,style,transition,animate,keyframes } from '@angular/animations'
 
 @Component({
   selector: 'app-root',
@@ -70,6 +72,17 @@ import { Component } from '@angular/core';
 
 <h3 [ngStyle]="multiStyles">ngStyle</h3>
 
+
+<p></p>
+<h2 >7. Services</h2>
+<p>{{someProperty}}</p>
+
+<p></p>
+<h2 >8. Animation</h2>
+<p class="animated" [@myAwesomeAnimation]='state' (click)="animateMe()">I will animate</p>
+
+<p class="animated" [@myKeyFrameAnimation]='stateKeyFrame' (click)="animateMeKeyFrame()">Keyframe animation</p>
+
 `
   ,
   styles: [`
@@ -102,9 +115,74 @@ import { Component } from '@angular/core';
   .large-title{
     font-size: 4em;
   }
-`]
+
+  .animated{
+    width: 200px;
+    background: lightgray;
+    margin: 100px auto;
+    text-align: center;
+    padding: 20px;
+    font-size: 1.5em;
+  }
+`],
+
+  animations: [
+    trigger('myAwesomeAnimation', [
+
+      state('small', style({
+        transform: 'scale(1)'
+      })),
+      state('large', style({
+        transform: 'scale(1.2)'
+      })),
+      transition('small <=> large', animate('300ms ease-in', style({
+        transform: 'translateY(40px)'
+      })))
+    ]),
+
+    trigger('myKeyFrameAnimation', [
+
+      state('small', style({
+        transform: 'scale(1)'
+      })),
+      state('large', style({
+        transform: 'scale(1.2)'
+      })),
+      transition('small <=> large', animate('600ms ease-in', keyframes([
+        style({ opacity: 0, transform: 'translateY(-75%)', offset: 0 }),
+        style({ opacity: 1, transform: 'translateY(35px)', offset: .5 }),
+        style({ opacity: 1, transform: 'translateY(0)', offset: 1 })
+      ])))
+    ])
+
+
+  ]
 })
 export class AppComponent {
+
+  constructor(private dataService: DataService) {
+
+  }
+
+  state: string = 'small'
+
+  stateKeyFrame: string = 'small'
+
+  someProperty: string = '';
+
+  ngOnInit() {
+    console.log(this.dataService.cars)
+    this.someProperty = this.dataService.myData();
+  }
+
+  animateMe() {
+    this.state = (this.state === 'small' ? 'large' : 'small');
+  }
+
+  animateMeKeyFrame() {
+    this.stateKeyFrame = (this.stateKeyFrame === 'small' ? 'large' : 'small');
+  }
+  
   customerObj = {
     name: 'lencho',
     age: 190,
