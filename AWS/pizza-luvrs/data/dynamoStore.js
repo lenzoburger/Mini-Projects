@@ -5,7 +5,7 @@ AWS.config.update({ region: 'ap-southeast-2' })
 const dynamodb = new AWS.DynamoDB.DocumentClient();
 
 async function putItem(table, item) {
-    return Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
         const params = {
             TableName: table,
             Item: item
@@ -21,24 +21,28 @@ async function putItem(table, item) {
     })
 }
 
-async function getAllitems() {
-    return Promise((resolve, reject) => {
+async function getAllItems(table) {
+    return new Promise((resolve, reject) => {
         const params = {
             TableName: table,
         }
-
+        console.log('getting all items')
+        
         dynamodb.scan(params, (err, data) => {
             if(err){
+                console.log('Failed')
                 reject(err)
             }else{
+                console.log('Passed')
+                console.log(data.Items)
                 resolve(data.Items)
             }
         })
     })
 }
 
-async function getItem(id) {
-    return Promise((resolve, reject) => {
+async function getItem(table, idKey, id) {
+    return new Promise((resolve, reject) => {
         const params = {
             TableName: table,
             Key: {
@@ -58,6 +62,6 @@ async function getItem(id) {
 
 module.exports = {
     putItem,
-    getAllitems,
+    getAllItems,
     getItem
 }

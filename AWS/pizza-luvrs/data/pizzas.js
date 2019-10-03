@@ -18,7 +18,7 @@ function batchImport(name, toppings, imgUrl, username) {
 }
 
 async function getForUser(username) {
-  return PizzaStore.findall({
+  return PizzaStore.findAll({
     where: {
       username: username
     },
